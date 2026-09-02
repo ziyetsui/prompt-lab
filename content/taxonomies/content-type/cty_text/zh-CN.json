@@ -1,0 +1,40 @@
+{
+  "axis": "content-type",
+  "description": "通过兼容模型产出结构化或自由文本内容的提示词分类。",
+  "id": "cty_text",
+  "indexable": false,
+  "locale": "zh-CN",
+  "model": null,
+  "name": "文本",
+  "publication": {
+    "publishedAt": null,
+    "sourceRevision": "sha256:f88de4176f6ec48455f235a934b330b890372a371892e1bf35c96b5adfd22812",
+    "updatedAt": "2026-09-02T19:35:40.168Z"
+  },
+  "schemaVersion": 1,
+  "selector": {
+    "field": "contentType",
+    "value": "text"
+  },
+  "seo": {
+    "canonical": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/content-type/cty_text/zh-CN.json",
+    "description": "浏览输出类型明确为文本的可复用提示词。",
+    "robots": "noindex,nofollow",
+    "title": "文本提示词"
+  },
+  "slug": "text",
+  "sourceLocale": "zh-CN",
+  "sourceRef": "https://github.com/ziyetsui/prompt-lab/issues/1",
+  "status": "draft",
+  "surface": {
+    "kind": "content-type-gallery",
+    "level": "L2",
+    "path": "/zh-CN/prompts/text"
+  },
+  "translation": {
+    "reviewer": null,
+    "status": "draft",
+    "translatedFromRevision": null
+  },
+  "type": "taxonomy"
+}
