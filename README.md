@@ -9,7 +9,8 @@ This repository is a content library, not a production CMS database. Git history
 - The repository starts with no Prompt records rather than publishing invented or unverified example data.
 - It contains **none** of the unverified CMS seed records from the application project.
 - The generated public catalog is initially empty. A prompt enters it only after provenance, review, publication, translation, and indexing gates all pass.
-- **License pending:** no repository or content license has been selected. Until the owner adds an explicit license, do not assume permission to reuse repository code or contributed prompt text outside rights granted by law or by the individual source.
+- Repository software, schemas, automation, tests, and non-content documentation use the [MIT License](LICENSE).
+- Original Prompt content and taxonomy descriptions under `content/` use [CC BY 4.0](LICENSE-CONTENT.md), unless a file states otherwise. Third-party material is not automatically relicensed and still requires a human-approved content-rights clearance before indexing.
 
 ## Content layout
 
