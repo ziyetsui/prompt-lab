@@ -1,0 +1,46 @@
+{
+  "axis": "model",
+  "description": "不依赖某个指定模型或供应商即可使用的提示词分类。",
+  "id": "mdl_model_agnostic",
+  "indexable": false,
+  "locale": "zh-CN",
+  "model": {
+    "capabilities": [],
+    "inputs": [],
+    "limitations": [],
+    "officialUrl": null,
+    "outputs": []
+  },
+  "name": "模型无关",
+  "publication": {
+    "publishedAt": null,
+    "sourceRevision": "sha256:75a1ed2fb3d131cfd7b6976092eb638b9d4afbf5c059957c31e4afd674e2a094",
+    "updatedAt": "2026-09-02T19:35:40.168Z"
+  },
+  "schemaVersion": 1,
+  "selector": {
+    "field": "models",
+    "value": "model-agnostic"
+  },
+  "seo": {
+    "canonical": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/model/mdl_model_agnostic/zh-CN.json",
+    "description": "浏览不依赖指定模型或供应商的可复用提示词。",
+    "robots": "noindex,nofollow",
+    "title": "模型无关提示词"
+  },
+  "slug": "model-agnostic",
+  "sourceLocale": "zh-CN",
+  "sourceRef": "https://github.com/ziyetsui/prompt-lab/issues/1",
+  "status": "draft",
+  "surface": {
+    "kind": "model-detail",
+    "level": "L3",
+    "path": "/zh-CN/prompts/models/model-agnostic"
+  },
+  "translation": {
+    "reviewer": null,
+    "status": "draft",
+    "translatedFromRevision": null
+  },
+  "type": "taxonomy"
+}
