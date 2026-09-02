@@ -4,6 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
 
+import { validateJsonSchema } from '../lib/json-schema.mjs'
 import { buildRepository, repositoryRoot, validateRepository } from '../scripts/content.mjs'
 
 async function tree(directory) {
@@ -133,6 +134,26 @@ test('empty bootstrap repository passes canonical Prompt-only validation', async
   assert.deepEqual(result.diagnostics, [])
   assert.equal(result.documents.length, 0)
   assert.equal(result.taxonomies.length, 0)
+})
+
+test('taxonomy sourceRef accepts only legacy wireframes or this repository rights-evidence issues', async () => {
+  const schema = JSON.parse(await readFile(path.join(repositoryRoot, 'schemas/taxonomy.schema.json'), 'utf8'))
+  const sourceRefSchema = schema.properties.sourceRef
+  for (const value of [
+    'docs/wireframes/flow-proto.html#l2',
+    'docs/wireframes/flow-proto.html#l3',
+    'https://github.com/ziyetsui/prompt-lab/issues/1',
+    'https://github.com/ziyetsui/prompt-lab/issues/987654',
+  ]) assert.deepEqual(validateJsonSchema(sourceRefSchema, value), [], value)
+
+  for (const value of [
+    'https://example.com/ziyetsui/prompt-lab/issues/1',
+    'https://github.com/another-owner/prompt-lab/issues/1',
+    'https://github.com/ziyetsui/another-repo/issues/1',
+    'https://github.com/ziyetsui/prompt-lab/issues/0',
+    'https://github.com/ziyetsui/prompt-lab/issues/01',
+    'https://github.com/ziyetsui/prompt-lab/issues/1?draft=true',
+  ]) assert.ok(validateJsonSchema(sourceRefSchema, value).some((error) => error.keyword === 'pattern'), value)
 })
 
 test('build is deterministic and does not publish placeholder content', async () => {
