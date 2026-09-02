@@ -111,11 +111,16 @@ function taxonomyFixture(axis) {
   }
 }
 
-async function fixtureRepository({ omitModelTaxonomy = false, prompt = promptFixture(), taxonomyOverrides = {} } = {}) {
+async function emptyRepository() {
   const root = await mkdtemp(path.join(os.tmpdir(), 'promptlab-fixture-'))
   await cp(path.join(repositoryRoot, 'schemas'), path.join(root, 'schemas'), { recursive: true })
   await mkdir(path.join(root, 'governance'), { recursive: true })
   await writeFile(path.join(root, 'governance', 'rights-clearances.json'), '{\n  "schemaVersion": 1,\n  "clearances": []\n}\n')
+  return root
+}
+
+async function fixtureRepository({ omitModelTaxonomy = false, prompt = promptFixture(), taxonomyOverrides = {} } = {}) {
+  const root = await emptyRepository()
   const promptRoot = path.join(root, 'content', 'prompts', prompt.id)
   await mkdir(promptRoot, { recursive: true })
   const body = `# ${prompt.title}\n\n\`\`\`prompt\n${prompt.prompt.text}\n\`\`\`\n`
@@ -129,8 +134,8 @@ async function fixtureRepository({ omitModelTaxonomy = false, prompt = promptFix
   return root
 }
 
-test('empty bootstrap repository passes canonical Prompt-only validation', async () => {
-  const result = await validateRepository(repositoryRoot)
+test('an empty temporary repository passes canonical Prompt-only validation', async () => {
+  const result = await validateRepository(await emptyRepository())
   assert.deepEqual(result.diagnostics, [])
   assert.equal(result.documents.length, 0)
   assert.equal(result.taxonomies.length, 0)
