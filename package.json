@@ -1,0 +1,16 @@
+{
+  "name": "openlab-promptlab",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Git-first public prompt content library",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "validate": "node scripts/content.mjs validate",
+    "build": "node scripts/content.mjs build --output dist",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "npm run validate && npm test && npm run build"
+  }
+}

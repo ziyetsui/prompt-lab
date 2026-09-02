@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openlab.invalid/schemas/rights-clearance.schema.json",
+  "title": "PromptLab human-approved content-rights clearance registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "clearances"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "clearances": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "locale",
+          "status",
+          "basis",
+          "reviewedBy",
+          "reviewedAt",
+          "evidenceUrl",
+          "licenseReference"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^prm_[a-z0-9_]{8,64}$"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "zh-CN"
+            ]
+          },
+          "status": {
+            "const": "cleared"
+          },
+          "basis": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 500
+          },
+          "reviewedBy": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "evidenceUrl": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "licenseReference": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 240
+          }
+        }
+      }
+    }
+  }
+}

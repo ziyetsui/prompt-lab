@@ -1,0 +1,34 @@
+name: Correct an existing prompt
+description: Propose a correction without changing its immutable identity.
+title: "[Correction]: "
+labels:
+  - content
+body:
+  - type: input
+    id: prompt_id
+    attributes:
+      label: Immutable prompt ID
+      placeholder: prm_example_identifier
+    validations:
+      required: true
+  - type: input
+    id: locale
+    attributes:
+      label: Locale
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Requested correction
+      description: Explain the exact field or Markdown change and why it is accurate.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence
+      description: Provide verifiable HTTPS sources where applicable.
+    validations:
+      required: true
+

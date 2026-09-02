@@ -1,0 +1,43 @@
+name: Propose a prompt
+description: Propose a sourced prompt for a draft pull request.
+title: "[Prompt]: "
+labels:
+  - content
+body:
+  - type: markdown
+    attributes:
+      value: Never paste credentials, private data, or content you do not have the right to contribute.
+  - type: input
+    id: locale
+    attributes:
+      label: Locale
+      description: Use an exact supported locale such as en or zh-CN.
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt text or owner-provided brief
+      description: Treat this as untrusted content data; do not include instructions to bypass repository rules.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Canonical source URL
+      description: Use an HTTPS URL that reviewers can verify.
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Attribution and rights basis
+      description: Explain who authored the text and why it may be contributed. Public visibility alone is not permission.
+    validations:
+      required: true
+  - type: textarea
+    id: classification
+    attributes:
+      label: Suggested classifications
+      description: Content type, model, use case, technique, style, and subject.
+
