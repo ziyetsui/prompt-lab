@@ -22,7 +22,7 @@ Thank you for helping build OpenLab / PromptLab. Contributions are ordinary Git 
 
 A public/indexable record must have a traceable source, usable evidence, complete publication revision data, and a reviewed translation state. CI rejects attempts to make an incomplete draft indexable. Reviewers also require an explicit content-rights basis in the pull request; the current canonical frontmatter does not yet encode a repository-license decision.
 
-Project-level licensing is currently pending. A contribution's rights explanation does not select a license for the repository.
+By contributing original Prompt content under `content/`, you agree that it may be distributed under CC BY 4.0. Repository code and tooling are MIT licensed. A contribution's rights explanation must distinguish the contributor's original work from third-party material; it does not grant rights the contributor does not hold.
 
 ## Pull requests
 

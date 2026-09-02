@@ -115,6 +115,9 @@ function validatePrompt(document, schema, root, diagnostics) {
   if (!publicRecord && (data.indexable !== false || data.seo?.robots !== 'noindex,nofollow')) {
     diagnostics.push(`${document.file}: non-public content must be noindex and not indexable`)
   }
+  if (data.status === 'published' && typeof data.publication?.publishedAt !== 'string') {
+    diagnostics.push(`${document.file}: published content requires a real publication timestamp`)
+  }
   if (!(data.evidence ?? []).some((item) => item.url === data.source?.url)) {
     diagnostics.push(`${document.file}: evidence must include the canonical source URL`)
   }
@@ -134,6 +137,9 @@ function validateTaxonomy(record, schema, root, diagnostics) {
   if (!ALLOWED_TAXONOMY_AXES.has(data.axis)) diagnostics.push(`${record.file}: unsupported taxonomy axis ${data.axis}`)
   if (data.indexable !== false || data.seo?.robots !== 'noindex,nofollow') {
     diagnostics.push(`${record.file}: canonical Internal Beta taxonomy must be noindex and not indexable`)
+  }
+  if (data.status === 'published' && typeof data.publication?.publishedAt !== 'string') {
+    diagnostics.push(`${record.file}: published taxonomy requires a real publication timestamp`)
   }
   if (SECRET.test(record.source) || UNSAFE.test(record.source)) diagnostics.push(`${record.file}: unsafe or secret-like content detected`)
 }
