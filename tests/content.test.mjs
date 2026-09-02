@@ -4,6 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
 
+import { validateJsonSchema } from '../lib/json-schema.mjs'
 import { buildRepository, repositoryRoot, validateRepository } from '../scripts/content.mjs'
 
 async function tree(directory) {
@@ -110,11 +111,16 @@ function taxonomyFixture(axis) {
   }
 }
 
-async function fixtureRepository({ omitModelTaxonomy = false, prompt = promptFixture(), taxonomyOverrides = {} } = {}) {
+async function emptyRepository() {
   const root = await mkdtemp(path.join(os.tmpdir(), 'promptlab-fixture-'))
   await cp(path.join(repositoryRoot, 'schemas'), path.join(root, 'schemas'), { recursive: true })
   await mkdir(path.join(root, 'governance'), { recursive: true })
   await writeFile(path.join(root, 'governance', 'rights-clearances.json'), '{\n  "schemaVersion": 1,\n  "clearances": []\n}\n')
+  return root
+}
+
+async function fixtureRepository({ omitModelTaxonomy = false, prompt = promptFixture(), taxonomyOverrides = {} } = {}) {
+  const root = await emptyRepository()
   const promptRoot = path.join(root, 'content', 'prompts', prompt.id)
   await mkdir(promptRoot, { recursive: true })
   const body = `# ${prompt.title}\n\n\`\`\`prompt\n${prompt.prompt.text}\n\`\`\`\n`
@@ -128,11 +134,31 @@ async function fixtureRepository({ omitModelTaxonomy = false, prompt = promptFix
   return root
 }
 
-test('empty bootstrap repository passes canonical Prompt-only validation', async () => {
-  const result = await validateRepository(repositoryRoot)
+test('an empty temporary repository passes canonical Prompt-only validation', async () => {
+  const result = await validateRepository(await emptyRepository())
   assert.deepEqual(result.diagnostics, [])
   assert.equal(result.documents.length, 0)
   assert.equal(result.taxonomies.length, 0)
+})
+
+test('taxonomy sourceRef accepts only legacy wireframes or this repository rights-evidence issues', async () => {
+  const schema = JSON.parse(await readFile(path.join(repositoryRoot, 'schemas/taxonomy.schema.json'), 'utf8'))
+  const sourceRefSchema = schema.properties.sourceRef
+  for (const value of [
+    'docs/wireframes/flow-proto.html#l2',
+    'docs/wireframes/flow-proto.html#l3',
+    'https://github.com/ziyetsui/prompt-lab/issues/1',
+    'https://github.com/ziyetsui/prompt-lab/issues/987654',
+  ]) assert.deepEqual(validateJsonSchema(sourceRefSchema, value), [], value)
+
+  for (const value of [
+    'https://example.com/ziyetsui/prompt-lab/issues/1',
+    'https://github.com/another-owner/prompt-lab/issues/1',
+    'https://github.com/ziyetsui/another-repo/issues/1',
+    'https://github.com/ziyetsui/prompt-lab/issues/0',
+    'https://github.com/ziyetsui/prompt-lab/issues/01',
+    'https://github.com/ziyetsui/prompt-lab/issues/1?draft=true',
+  ]) assert.ok(validateJsonSchema(sourceRefSchema, value).some((error) => error.keyword === 'pattern'), value)
 })
 
 test('build is deterministic and does not publish placeholder content', async () => {
