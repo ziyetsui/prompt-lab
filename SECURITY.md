@@ -16,10 +16,11 @@ enabling the repository's automation.
   `CF_ACCESS_CLIENT_ID` / `CF_ACCESS_CLIENT_SECRET` pair. The pair is accepted
   only when both values are configured and valid; repository code receives a
   local snapshot file and never the CMS URL or any fetch credential.
-- During Internal Beta, only the push step receives the dedicated
-  `MIRROR_PUSH_TOKEN` for this generated-only repository. Replace that
-  long-lived boundary with a short-lived GitHub App installation token before
-  GA. Neither credential may grant CMS write or production deploy access.
+- Only the final push step receives the dedicated, repository-scoped Ed25519
+  private key in `MIRROR_DEPLOY_KEY`. Its public key is installed as a writable
+  deploy key on `ziyetsui/prompt-lab` only; it is never a human account key and
+  never shared across repositories. It grants neither CMS write nor production
+  deploy access.
 - Secrets belong in GitHub or Cloudflare secret stores and must not appear in
   logs, generated files, Issues, comments, commits or model context.
 
@@ -45,9 +46,22 @@ Validation and push run on separate fresh runners. The first job transfers only
 a hashed inert one-commit Git bundle and expected identities. The writer job
 does not check out or execute repository code; trusted inline checks validate
 the exact artifact, hard-coded GitHub repository, CAS base, changed paths,
-manifest bytes and trailers before system Git receives the push token. Its
-HOME, PATH, shell startup variables, credential helpers and Git configuration
-are reset. A third credential-free runner verifies pushed `main`.
+manifest bytes and trailers before system Git receives the deploy-key file.
+Its HOME, PATH, shell startup variables, SSH agent, credential helpers and Git
+configuration are reset. The private key is accepted only when it parses as an
+Ed25519 key, written with mode 0600, unset from the shell before network access
+and removed on exit. GitHub's published Ed25519 host key is pinned with strict
+host-key checking; runtime `ssh-keyscan` is forbidden. A third credential-free
+runner verifies pushed `main`.
+
+A writable deploy key is repository-scoped, not path-scoped. The generated-only
+repository boundary and the writer's independent candidate path/tree verifier
+prevent this workflow from using the key to modify workflows, code, licenses
+or policy. Treat any exposure of the raw key as repository write compromise and
+rotate it immediately. GitHub does not list deploy keys as branch-ruleset bypass
+actors; a pull-request-required rule on generated `main` would therefore block
+this writer. Use a repository-scoped GitHub App when actor-level bypass is
+required.
 
 Only the mirror service identity may fast-forward generated output to `main`.
 No automation may force-push, delete the branch, modify its own workflow,

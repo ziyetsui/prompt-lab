@@ -22,7 +22,7 @@ mirror. Configure four separate credentials:
 
 1. an intake-only CMS credential for approved Issues;
 2. a read-only, snapshot-scoped CMS export credential;
-3. a short-lived GitHub mirror-writer credential;
+3. a dedicated, repository-scoped SSH mirror deploy key;
 4. a separate production deploy credential.
 
 The CMS is protected by Cloudflare Access, so GitHub-hosted jobs also need a
@@ -127,8 +127,13 @@ validate:mirror` and `npm run check:mirror` re-read the complete on-disk mirror.
 
 ## 5. Configure direct-main safely
 
-Generated content does not use per-content pull requests. Configure a dedicated
-mirror bot or GitHub App that may fast-forward `main` only after verification.
+Generated content does not use per-content pull requests. Configure a dedicated,
+passphrase-free Ed25519 SSH deploy key that may fast-forward `main` only after
+verification. Install its public key with write access on
+`ziyetsui/prompt-lab` only; store its private key as the Actions repository
+secret `MIRROR_DEPLOY_KEY`. Never add it as a human account key, reuse it across
+repositories or expose it to CMS/deploy jobs.
+
 Humans and general Agents remain unable to push `main`, force-push or delete the
 branch. Code, schema, workflow, license, policy and exporter changes continue to
 require reviewed pull requests.
@@ -149,19 +154,33 @@ The credential-free prepare job uploads a hashed inert one-commit Git bundle.
 A separate fresh runner does not check out or execute repository code: it
 validates the artifact and hard-coded `ziyetsui/prompt-lab` target, re-fetches
 `main`, compares the observed SHA and performs a normal fast-forward push. Only
-that final step receives `MIRROR_PUSH_TOKEN`, with sanitized HOME, PATH, shell
-startup and Git configuration. A third fresh runner verifies pushed `main`.
-The long-lived token is an explicit Internal Beta boundary; replace it with a
-short-lived GitHub App installation token before GA, and do not use
-`${{ github.token }}` as the writer.
+that final step receives `MIRROR_DEPLOY_KEY`, with sanitized HOME, PATH, shell
+startup, SSH agent and Git configuration. It writes the private key to a
+mode-0600 temporary file, accepts only an Ed25519 key, pins GitHub's published
+Ed25519 host key with strict host-key checking, and removes the temporary SSH
+files on exit. A third fresh runner verifies pushed `main`. Do not use
+`${{ github.token }}` or a human PAT as the writer.
+
+An SSH deploy key is scoped to one repository, but its write permission is not
+path-scoped. The writer's inline verifier therefore rejects any candidate that
+touches workflows, code, policy, license or other non-generated paths before
+SSH is invoked. Keep this as a generated-only repository, protect `main`
+against force-push/deletion, and rotate the deploy key on suspected exposure or
+operator change. GitHub documents both the
+[single-repository deploy-key scope](https://docs.github.com/en/rest/deploy-keys/deploy-keys)
+and the [published SSH host keys](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints).
 
 Before commit, the workflow checks the prospective Git index against every
 manifest path, mode, byte count and hash. It commits and pushes with hooks
 disabled, checks a clean `HEAD`, then runs the same manifest/tree/rights
 verifier from a fresh clean checkout after push. First-parent revision trailers
-block replay and same-revision equivocation. Configure the ruleset exception
-only for this bot identity; grant no workflow, administration or deployment
-permission.
+block replay and same-revision equivocation. GitHub's documented branch-ruleset
+bypass actors do not include SSH deploy keys, so do not enable a
+pull-request-required rule on this generated `main`: it would block the CAS
+writer. Restrict collaborators, disallow force-push and deletion, and require
+linear history. If actor-level ruleset bypass becomes mandatory, replace the
+deploy key with a repository-scoped GitHub App instead of weakening the
+verifier. See [ruleset bypass actors](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository#granting-bypass-permissions-for-your-branch-or-tag-ruleset).
 
 ## 6. Schedule, release and takedown
 
