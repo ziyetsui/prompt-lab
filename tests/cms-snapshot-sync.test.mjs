@@ -973,13 +973,11 @@ test('mirror workflow isolates a repository deploy key on fresh runners and perf
   assert.equal((workflow.match(/secrets\.MIRROR_DEPLOY_KEY/g) ?? []).length, 1)
   assert.doesNotMatch(workflow, /MIRROR_PUSH_TOKEN|x-access-token|prompt-lab-git-askpass/)
   assert.doesNotMatch(workflow, /github\.token/)
-  assert.match(workflow, /lookup\(host, \{ all: true, verbatim: true \}\)/)
   assert.match(workflow, /expectedHost = "pseo-cms-beta\.codex-cloudflare-20260612\.workers\.dev"/)
   assert.match(workflow, /expectedPath = "\/api\/internal\/v1\/public-snapshot"/)
   assert.match(workflow, /host !== expectedHost \|\| url\.pathname !== expectedPath/)
   assert.match(workflow, /url\.port \|\| url\.search/)
-  assert.doesNotMatch(workflow, /new BlockList\(\)|denied\.check\(address/)
-  assert.match(workflow, /prompt-lab-curl-resolve\.conf/)
+  assert.doesNotMatch(workflow, /new BlockList\(\)|denied\.check\(address|lookup\(host|prompt-lab-curl-resolve\.conf/)
   const fetchStep = workflow.slice(
     workflow.indexOf('- name: Fetch immutable CMS snapshot'),
     workflow.indexOf('- name: Validate and transactionally apply snapshot'),
@@ -996,6 +994,9 @@ test('mirror workflow isolates a repository deploy key on fresh runners and perf
   assert.match(fetchStep, /header = "CF-Access-Client-Id: %s"/)
   assert.match(fetchStep, /header = "CF-Access-Client-Secret: %s"/)
   assert.match(fetchStep, /curl --disable/)
+  assert.match(fetchStep, /--proto '=https'/)
+  assert.match(fetchStep, /--tlsv1\.2/)
+  assert.doesNotMatch(fetchStep, /--noproxy|--resolve|prompt-lab-curl-resolve/)
   assert.doesNotMatch(fetchStep, /scripts\/sync-cms-snapshot|npm run/)
   const afterFetchStep = workflow.slice(workflow.indexOf('- name: Validate and transactionally apply snapshot'))
   assert.doesNotMatch(afterFetchStep, /CF_ACCESS_CLIENT_(?:ID|SECRET)/)
