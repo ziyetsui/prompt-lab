@@ -2,16 +2,22 @@
   "name": "openlab-promptlab",
   "version": "0.0.0",
   "private": true,
-  "description": "Git-first public prompt content library",
+  "description": "CMS-first generated public Prompt mirror",
   "license": "MIT",
   "type": "module",
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "validate": "node scripts/content.mjs validate",
-    "build": "node scripts/content.mjs build --output dist",
-    "test": "node --test tests/*.test.mjs",
-    "verify": "npm run validate && npm test && npm run build"
+    "validate:legacy": "node scripts/content.mjs validate",
+    "build:legacy": "node scripts/content.mjs build --output dist",
+    "sync:cms": "node scripts/sync-cms-snapshot.mjs",
+    "check:cms": "node scripts/sync-cms-snapshot.mjs --check",
+    "validate:mirror": "node scripts/sync-cms-snapshot.mjs --verify-worktree",
+    "check:mirror": "node scripts/sync-cms-snapshot.mjs --verify-worktree",
+    "validate": "node scripts/verify-repository.mjs",
+    "check": "node scripts/verify-repository.mjs",
+    "test": "node --test tests/cms-snapshot-sync.test.mjs",
+    "verify": "npm run test && npm run validate"
   }
 }
