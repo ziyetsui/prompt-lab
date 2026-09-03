@@ -1,23 +1,39 @@
-# Prompt content license: CC BY 4.0
+# Prompt content license and third-party notice
 
-Unless a content file states otherwise, original Prompt content and taxonomy descriptions under `content/` are licensed under the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/), commonly called **CC BY 4.0**.
+## Authorized original contributions
 
-You may share and adapt covered content for any purpose, including commercially, provided that you give appropriate credit, link to the license, and indicate whether changes were made. You may not apply legal terms or technological measures that legally restrict others from exercising the rights the license grants.
+Prompt content, project-authored explanations and translations are available
+under the [Creative Commons Attribution 4.0 International
+license](https://creativecommons.org/licenses/by/4.0/) only when the recorded
+contributor or rights holder had authority to grant that license and the CMS
+rights decision is `cleared`.
 
-The official legal code controls: <https://creativecommons.org/licenses/by/4.0/legalcode>
+When reusing covered material, provide appropriate attribution, link to the
+license and indicate whether changes were made. The official Creative Commons
+legal code controls.
 
-## Attribution
+A `cleared` record based on a different compatible source license is governed
+by the exact license reference shown for that record; this repository does not
+silently replace those terms with CC BY 4.0.
 
-Where practical, include:
+## Community-attributed material
 
-- the Prompt title and author or contributor recorded in its metadata;
-- “OpenLab / PromptLab” and a link to the source file or repository;
-- a link to CC BY 4.0; and
-- a description of modifications, if any.
+Content marked `community_attributed` is not offered under the repository's CC
+BY 4.0 license. It is reproduced under a separately reviewed community
+attribution and notice-and-takedown policy. The identified original author
+retains rights. Follow the source's terms and contact the rights holder when
+permission is required.
 
-## Scope and third-party material
+Every generated community-attributed record must include the author, original
+source, an “author retains rights” notice and the repository takedown route.
+Linked or displayed third-party media is not licensed merely because the Prompt
+text is present here.
 
-This license applies only to material the repository contributors have authority to license. Third-party Prompt text, media, quotations, trademarks, and linked sources are not automatically relicensed. Their own terms continue to apply. A content-rights clearance is required before any Prompt becomes public/indexable in the generated catalog.
+## Exclusions and removal
 
-Software, schemas, automation, tests, and documentation outside `content/` are covered by the MIT License in `LICENSE`, unless a file carries a different notice.
+Trademarks, publicity/privacy rights, third-party media, quotations and linked
+sources may have separate restrictions. Records marked `review_required`,
+`restricted` or `takedown` are not eligible for the public mirror.
 
+To request a correction or removal, use the repository's dedicated rights and
+takedown form. Do not publish sensitive identity evidence in a public Issue.

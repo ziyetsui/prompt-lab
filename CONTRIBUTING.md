@@ -1,44 +1,90 @@
-# Contributing
+# Contributing to Public Prompt Lab
 
-Thank you for helping build OpenLab / PromptLab. Contributions are ordinary Git pull requests so content decisions remain visible in the diff and history.
+Thank you for helping build a useful, attributable Prompt commons. PromptLab is
+CMS-first: community Issues are reviewed intake records, Payload CMS is the
+content authority, and GitHub content files are generated mirrors.
 
-## Before editing
+> Implementation note: these forms describe the approved policy. Intake and
+> mirror automation must pass the bootstrap proof before maintainers use the
+> `approved` label as an automated action.
 
-1. Read `AGENTS.md` and `content/README.md`.
-2. Check whether the immutable prompt ID or locale already exists.
-3. Confirm that the prompt text, attribution, source URL, and reuse rights are known. Do not copy content merely because it is publicly viewable.
-4. Do not include API keys, cookies, personal data, private URLs, generated credentials, or unpublished CMS records.
+## Before you start
 
-## Add a prompt
+- Search existing Issues and the generated catalog for duplicates.
+- Never submit credentials, private URLs, personal data, confidential material
+  or unlawfully obtained content.
+- Preserve the Prompt's original language. A localized explanation must not be
+  presented as the source author's original Prompt.
+- Provide an HTTPS original source and accurate creator attribution.
+- Do not claim that public visibility gives you permission to relicense a work.
 
-- Create `content/prompts/prm_<stable-id>/<locale>.md`.
-- Use JSON-compatible YAML between the two frontmatter delimiters. The repository intentionally parses this as JSON to avoid YAML ambiguity.
-- Keep the directory name and frontmatter `id` identical forever.
-- Add only canonical content-type/model taxonomy records genuinely needed by the prompt. Do not invent a model, creator, source, metric, result, timestamp, or license.
-- Start with `status: draft`, `indexable: false`, and `seo.robots: noindex,nofollow`. Every other required canonical field still needs real input; do not add a record until it can pass the schema without fabricated placeholders.
-- Each locale is independently reviewed. Do not silently fall back to another locale or present a translation as the source author's original text.
+## Choose exactly one rights path
 
-## Publication requirements
+### Original, authorized or compatibly licensed Prompt
 
-A public/indexable record must have a traceable source, usable evidence, complete publication revision data, and a reviewed translation state. CI rejects attempts to make an incomplete draft indexable. Reviewers also require an explicit content-rights basis in the pull request; the current canonical frontmatter does not yet encode a repository-license decision.
+Use the **Original or authorized Prompt** form only when you are the creator,
+have explicit authorization, or can identify a compatible source license. You
+must provide the rights basis and accept CC BY 4.0 for the material you have
+authority to contribute.
 
-By contributing original Prompt content under `content/`, you agree that it may be distributed under CC BY 4.0. Repository code and tooling are MIT licensed. A contribution's rights explanation must distinguish the contributor's original work from third-party material; it does not grant rights the contributor does not hold.
+After a maintainer checks the current Issue body, required attestations,
+provenance and safety, they may add `approved`. A successful, idempotent sync
+then creates or updates a CMS intake candidate for the `cleared` path and
+records the exact Issue revision and approver. It enters an approved export
+snapshot only after CMS accepts a revision-bound editorial and rights decision.
+
+### Community Prompt nomination
+
+Use the **Community Prompt nomination** form when you found a public Prompt but
+do not own it. This is a source lead, not a license grant. Supply the original
+author, author profile when available, original post and enough context to
+review the nomination.
+
+A maintainer may send it to CMS for review under the explicit
+`community_attributed` policy.
+Published mirrors must then show the attribution, original source, “author
+retains rights” notice and takedown route, and must not claim that the third
+party Prompt is CC BY 4.0. Media requires a separate permission decision.
+
+## Corrections and translations
+
+- A correction identifies the immutable Prompt ID and locale and supplies
+  evidence for the requested change.
+- A translation covers localized explanation only unless the source itself
+  contains the translated Prompt. The contributor must have authority to offer
+  their translation under CC BY 4.0.
+- Either path remains pending until a maintainer approves the current Issue
+  revision and CMS validation succeeds.
+
+Editing an approved Issue changes its body hash and invalidates the old
+approval. Replayed events must not create duplicate CMS records.
+
+## Rights and takedown requests
+
+Use the dedicated takedown form for attribution, permission, privacy or removal
+concerns. Do not put sensitive identity evidence in a public Issue; use the
+private contact configured by the repository when necessary. A verified
+takedown or restriction is prioritized over the four-hour reconciliation and
+must remove the record from the next CMS export snapshot.
+
+Git cannot erase history through an ordinary commit. Requests requiring history
+rewrites follow a separate owner-approved legal/security procedure.
 
 ## Pull requests
 
-Run:
+Content contributors do not edit `content/**`, `catalog.json`, locale indexes or
+generated README files. The mirror bot replaces those files from one immutable
+CMS snapshot and may fast-forward `main` only after the complete output passes
+its allowlist and verification gates.
 
-```bash
-npm run verify
-```
+Pull requests remain required for code, schema, workflow, license, policy,
+security and exporter changes. Use the repository pull-request template, run the
+applicable checks, and do not include generated content or CMS credentials in a
+control-plane PR.
 
-Then describe:
+## Maintainer review standard
 
-- the prompt ID and locales changed;
-- source, evidence, and content-rights basis;
-- taxonomy additions or changes;
-- actual verification output;
-- any missing facts or known risks;
-- whether the change remains draft/noindex.
-
-Maintainers may request a smaller diff, stronger provenance, or removal of content whose rights are unclear. Never bypass required checks, force-push over another contributor's work, auto-merge, or claim a downstream deployment completed without evidence.
+Maintainers verify duplicate status, source authenticity, author attribution,
+rights path, content and media safety, locale quality and usefulness. The
+`approved` label is a privileged publication decision, not a convenience tag.
+An approval is valid only for the exact Issue revision later accepted by CMS.

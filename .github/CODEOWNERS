@@ -1,6 +1,7 @@
 * @ziyetsui
 
 /content/ @ziyetsui
-/governance/rights-clearances.json @ziyetsui
-/schemas/ @ziyetsui
+/governance/ @ziyetsui
+/lib/ @ziyetsui
+/scripts/ @ziyetsui
 /.github/workflows/ @ziyetsui
