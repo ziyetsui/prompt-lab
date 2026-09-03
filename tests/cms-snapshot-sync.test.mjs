@@ -974,11 +974,11 @@ test('mirror workflow isolates a repository deploy key on fresh runners and perf
   assert.doesNotMatch(workflow, /MIRROR_PUSH_TOKEN|x-access-token|prompt-lab-git-askpass/)
   assert.doesNotMatch(workflow, /github\.token/)
   assert.match(workflow, /lookup\(host, \{ all: true, verbatim: true \}\)/)
-  assert.match(workflow, /new BlockList\(\)/)
-  assert.match(workflow, /denied\.check\(address/)
-  assert.match(workflow, /githubRunnerProxy\.addSubnet\("198\.18\.0\.0", 15, "ipv4"\)/)
-  assert.match(workflow, /githubRunnerProxy\.check\(address, "ipv4"\)/)
-  assert.match(workflow, /!host\.endsWith\("\.workers\.dev"\)/)
+  assert.match(workflow, /expectedHost = "pseo-cms-beta\.codex-cloudflare-20260612\.workers\.dev"/)
+  assert.match(workflow, /expectedPath = "\/api\/internal\/v1\/public-snapshot"/)
+  assert.match(workflow, /host !== expectedHost \|\| url\.pathname !== expectedPath/)
+  assert.match(workflow, /url\.port \|\| url\.search/)
+  assert.doesNotMatch(workflow, /new BlockList\(\)|denied\.check\(address/)
   assert.match(workflow, /prompt-lab-curl-resolve\.conf/)
   const fetchStep = workflow.slice(
     workflow.indexOf('- name: Fetch immutable CMS snapshot'),
