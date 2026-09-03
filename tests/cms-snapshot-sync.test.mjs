@@ -1009,6 +1009,8 @@ test('mirror workflow isolates a repository deploy key on fresh runners and perf
   assert.match(pushStep, /MIRROR_DEPLOY_KEY/)
   assert.match(pushStep, /test "\$GITHUB_REPOSITORY" = 'ziyetsui\/prompt-lab'/)
   assert.match(pushStep, /git@github\.com:ziyetsui\/prompt-lab\.git/)
+  assert.match(pushStep, /path in records/)
+  assert.doesNotMatch(pushStep, /previous is not None and previous >= path/)
   assert.match(pushStep, /\/usr\/bin\/timeout 5 \/usr\/bin\/ssh-keygen -y/)
   assert.match(pushStep, /github\.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl/)
   assert.match(pushStep, /SHA256:\+DiY3wvvV6TuJJhbpZisF\/zLDA0zPMSvHdkr4UvCOqU/)

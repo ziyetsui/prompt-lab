@@ -339,16 +339,16 @@ jobs:
           files = manifest.get('files')
           if not isinstance(files, list):
               raise SystemExit('candidate manifest files are invalid')
-          expected_paths, records, previous = {'mirror-manifest.json'}, {}, None
+          expected_paths, records = {'mirror-manifest.json'}, {}
           for record in files:
               if not isinstance(record, dict) or set(record) != {'path', 'sha256', 'bytes'}:
                   raise SystemExit('candidate manifest record is invalid')
               path, digest, size = record.get('path'), record.get('sha256'), record.get('bytes')
-              if not isinstance(path, str) or not allowed.fullmatch(path) or path == 'mirror-manifest.json' or previous is not None and previous >= path:
+              if not isinstance(path, str) or not allowed.fullmatch(path) or path == 'mirror-manifest.json' or path in records:
                   raise SystemExit('candidate manifest path is invalid')
               if not isinstance(digest, str) or not re.fullmatch(r'sha256:[a-f0-9]{64}', digest) or not isinstance(size, int) or isinstance(size, bool) or size < 0 or size > 8 * 1024 * 1024:
                   raise SystemExit('candidate manifest metadata is invalid')
-              previous, records[path] = path, (digest, size)
+              records[path] = (digest, size)
               expected_paths.add(path)
           managed = {}
           for raw in git('ls-tree', '-rz', '--full-tree', head).split(b'\0'):
