@@ -70,9 +70,11 @@ pages, revision drift or an allowlist-external change fails with zero commit and
 zero push.
 
 The repository script deliberately does not fetch URLs or receive Bearer
-tokens. The workflow validates the configured HTTPS hostname, resolves every
-address, rejects private/special results, pins the approved addresses into curl,
-and stores a bounded temporary file. A later credential-free invocation uses
+tokens. Before materializing headers, the workflow requires the configured URL
+to match the hard-coded CMS HTTPS hostname and snapshot path exactly and rejects
+alternate ports, queries, fragments and redirects. It uses the hosted runner's
+standard outbound path plus TLS hostname/certificate verification and stores a
+bounded temporary file. A later credential-free invocation uses
 `--snapshot-file`. Direct `--url` use fails closed. The endpoint returns one JSON
 envelope:
 
@@ -103,10 +105,10 @@ sync writes that file from the canonical manifest and verifies
 `manifestSha256`. A complete snapshot always includes `README.md`,
 `catalog.json`, `content/site.json` and
 `governance/content-rights.json` plus the closed, non-sensitive
-`governance/publication-audit.json`. Unknown envelope fields, redirects, non-HTTPS
-or local/private DNS results, non-canonical base64, duplicate/case-colliding
-paths, symlinks, traversal and allowlist-external paths fail before managed
-output is changed.
+`governance/publication-audit.json`. Unknown envelope fields, redirects,
+non-HTTPS or non-pinned endpoint URLs, non-canonical base64,
+duplicate/case-colliding paths, symlinks, traversal and allowlist-external paths
+fail before managed output is changed.
 
 Configure repository variable `CMS_SNAPSHOT_URL` with the immutable snapshot
 endpoint and repository secret `CMS_SNAPSHOT_TOKEN` with a read-only,
@@ -149,7 +151,7 @@ hash and exporter version in its commit trailers. Never force-push.
 
 Install `.github/workflows/sync-cms-snapshot.yml` only in the generated mirror
 repository. Its default permission is `contents: read`; the CMS token exists
-only in the DNS-pinned curl fetch step and repository code never runs there.
+only in the origin-pinned curl fetch step and repository code never runs there.
 The credential-free prepare job uploads a hashed inert one-commit Git bundle.
 A separate fresh runner does not check out or execute repository code: it
 validates the artifact and hard-coded `ziyetsui/prompt-lab` target, re-fetches

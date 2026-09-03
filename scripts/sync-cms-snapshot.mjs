@@ -1420,7 +1420,7 @@ export async function syncValidatedSnapshot({ root, snapshot, check = false, see
 export async function syncCmsSnapshot() {
   fail(
     'NETWORK_FETCH_DISABLED',
-    'Direct network fetch is disabled; provide a DNS-pinned snapshot file from the credential-isolated workflow step',
+    'Direct network fetch is disabled; provide an origin-pinned snapshot file from the credential-isolated workflow step',
   )
 }
 
