@@ -74,8 +74,6 @@ jobs:
             fi
           fi
           node --input-type=module -e '
-            import { lookup } from "node:dns/promises";
-            import { writeFile } from "node:fs/promises";
             const value = process.env.CMS_SNAPSHOT_URL;
             let url;
             try { url = new URL(value); } catch { process.exit(2); }
@@ -87,20 +85,11 @@ jobs:
               url.hostname.endsWith(".") || url.port || url.search ||
               host !== expectedHost || url.pathname !== expectedPath
             ) process.exit(2);
-            // The endpoint is pinned above before credentials are materialized.
-            // Accept GitHub-hosted runner proxy DNS mappings, then pin curl to
-            // exactly the addresses returned for this one trusted hostname.
-            const addresses = await lookup(host, { all: true, verbatim: true });
-            if (addresses.length === 0) process.exit(2);
-            const port = url.port || "443";
-            const lines = addresses.map(({ address }) => `resolve = "${host}:${port}:${address.includes(":") ? `[${address}]` : address}"`).join("\n");
-            await writeFile(`${process.env.RUNNER_TEMP}/prompt-lab-curl-resolve.conf`, `${lines}\n`, { mode: 0o600 });
           '
           umask 077
           auth_config="$RUNNER_TEMP/prompt-lab-curl-auth.conf"
-          resolve_config="$RUNNER_TEMP/prompt-lab-curl-resolve.conf"
           snapshot_file="$RUNNER_TEMP/prompt-lab-cms-snapshot.json"
-          trap 'rm -f "$auth_config" "$resolve_config"' EXIT
+          trap 'rm -f "$auth_config"' EXIT
           printf 'header = "Authorization: Bearer %s"\n' "$CMS_SNAPSHOT_TOKEN" > "$auth_config"
           if [[ -n "$CF_ACCESS_CLIENT_ID" ]]; then
             printf 'header = "CF-Access-Client-Id: %s"\n' "$CF_ACCESS_CLIENT_ID" >> "$auth_config"
@@ -108,15 +97,14 @@ jobs:
           fi
           curl --disable \
             --config "$auth_config" \
-            --config "$resolve_config" \
             --connect-timeout 10 \
             --fail \
             --max-filesize 50331648 \
             --max-redirs 0 \
             --max-time 30 \
-            --noproxy '*' \
             --output "$snapshot_file" \
             --proto '=https' \
+            --tlsv1.2 \
             --silent \
             --show-error \
             "$CMS_SNAPSHOT_URL"

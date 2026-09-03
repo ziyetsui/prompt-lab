@@ -90,9 +90,10 @@ not use per-item branches or pull requests. Control-plane changes—code, schema
 workflow, license, policy, security and exporter—still require normal PR review.
 
 The repository script never receives a network credential or performs network
-fetches. A workflow-only step validates DNS results, rejects private/special
-addresses, pins them into curl, and writes a bounded temporary snapshot. A
-later credential-free step validates and applies that file. The same manifest,
+fetches. A workflow-only step requires the one hard-coded CMS HTTPS origin and
+snapshot path before materializing headers, uses standard hosted-runner egress
+and TLS hostname/certificate verification, and writes a bounded temporary
+snapshot. A later credential-free step validates and applies that file. The same manifest,
 rights and byte verifier runs against the prospective Git index and clean HEAD
 before push. It packages only a hashed, inert, one-commit Git bundle. A separate
 fresh runner with no checkout validates the artifact, hard-coded repository,

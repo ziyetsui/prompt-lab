@@ -33,10 +33,12 @@ route.
 
 ## Generated mirror safety
 
-The workflow resolves every snapshot hostname result, rejects private or
-special addresses, pins the accepted address for the no-redirect HTTPS fetch,
-and passes the downloaded file to the repository consumer. Direct network
-fetching from repository code is disabled. The consumer builds into a fresh
+The workflow accepts only the hard-coded CMS HTTPS hostname and snapshot path,
+rejecting alternate origins, ports, query strings, fragments and redirects
+before authentication headers are materialized. The fetch uses the hosted
+runner's standard outbound path and TLS hostname/certificate verification, then
+passes the downloaded file to the repository consumer. Direct network fetching
+from repository code is disabled. The consumer builds into a fresh
 temporary directory from one immutable CMS snapshot and rejects path
 traversal, absolute paths, symlinks, unsafe HTML, dangerous URL schemes,
 secret-like content, incomplete pagination and allowlist-external changes. A
