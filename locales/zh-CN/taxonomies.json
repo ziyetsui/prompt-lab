@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "exportRevision": "sha256:7ea734603e1ca5976d0f35636cb615ffd542c572521ccece86f8eabfe5601114",
+  "locale": "zh-CN",
+  "total": 2,
+  "items": [
+    {
+      "axis": "content-type",
+      "description": "通过兼容模型产出结构化或自由文本内容的提示词分类。",
+      "id": "cty_text",
+      "indexable": false,
+      "locale": "zh-CN",
+      "model": null,
+      "name": "文本",
+      "schemaVersion": 1,
+      "selector": {
+        "field": "contentType",
+        "value": "text"
+      },
+      "seo": {
+        "canonical": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/content-type/cty_text/zh-CN.json",
+        "description": "浏览输出类型明确为文本的可复用提示词。",
+        "robots": "noindex,nofollow",
+        "title": "文本提示词"
+      },
+      "slug": "text",
+      "sourceLocale": "en",
+      "status": "published",
+      "surface": {
+        "kind": "content-type-gallery",
+        "level": "L2",
+        "path": "/zh-CN/prompts/text"
+      },
+      "type": "taxonomy",
+      "sourceRef": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/content-type/cty_text/zh-CN.json",
+      "publication": {
+        "publishedAt": "2026-09-03T11:41:28.915Z",
+        "updatedAt": "2026-09-03T11:41:28.915Z",
+        "sourceRevision": "sha256:def258c3475e6e8b1fdd1c2471917ffc04168f9048825a57053a7d58f2e9f500"
+      },
+      "translation": {
+        "status": "ready",
+        "translatedFromRevision": "sha256:def258c3475e6e8b1fdd1c2471917ffc04168f9048825a57053a7d58f2e9f500",
+        "reviewer": "CMS approval"
+      },
+      "path": "content/taxonomies/content-type/cty_text/zh-CN.json"
+    },
+    {
+      "axis": "model",
+      "description": "不依赖某个指定模型或供应商即可使用的提示词分类。",
+      "id": "mdl_model_agnostic",
+      "indexable": false,
+      "locale": "zh-CN",
+      "model": {
+        "capabilities": [],
+        "inputs": [],
+        "limitations": [],
+        "officialUrl": null,
+        "outputs": []
+      },
+      "name": "模型无关",
+      "schemaVersion": 1,
+      "selector": {
+        "field": "models",
+        "value": "model-agnostic"
+      },
+      "seo": {
+        "canonical": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/model/mdl_model_agnostic/zh-CN.json",
+        "description": "浏览不依赖指定模型或供应商的可复用提示词。",
+        "robots": "noindex,nofollow",
+        "title": "模型无关提示词"
+      },
+      "slug": "model-agnostic",
+      "sourceLocale": "en",
+      "status": "published",
+      "surface": {
+        "kind": "model-detail",
+        "level": "L3",
+        "path": "/zh-CN/prompts/models/model-agnostic"
+      },
+      "type": "taxonomy",
+      "sourceRef": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/model/mdl_model_agnostic/zh-CN.json",
+      "publication": {
+        "publishedAt": "2026-09-03T11:41:28.915Z",
+        "updatedAt": "2026-09-03T11:41:28.915Z",
+        "sourceRevision": "sha256:a5849e6557446424a32f87974f662f410575ef4c5c30075ec1690f6e293226ad"
+      },
+      "translation": {
+        "status": "ready",
+        "translatedFromRevision": "sha256:a5849e6557446424a32f87974f662f410575ef4c5c30075ec1690f6e293226ad",
+        "reviewer": "CMS approval"
+      },
+      "path": "content/taxonomies/model/mdl_model_agnostic/zh-CN.json"
+    }
+  ]
+}

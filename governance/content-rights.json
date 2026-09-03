@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "exportRevision": "sha256:7ea734603e1ca5976d0f35636cb615ffd542c572521ccece86f8eabfe5601114",
+  "total": 1,
+  "items": [
+    {
+      "id": "prm_80934ec28db44eec9c8a500111072136",
+      "locale": "zh-CN",
+      "status": "cleared",
+      "rightsRevision": "sha256:dbe0372494056f2f20b87e6da417c20254f2006d20a9e15dece9439665796259",
+      "sourceUrl": "https://github.com/ziyetsui/prompt-lab/issues/1",
+      "reviewedAt": "2026-09-02T19:16:57.000Z",
+      "basis": "内容所有者已审阅并明确授权公开此原创 Prompt，并允许将该 GitHub Issue 作为权利审核依据。",
+      "evidenceUrl": "https://github.com/ziyetsui/prompt-lab/issues/1",
+      "licenseReference": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)"
+    }
+  ]
+}

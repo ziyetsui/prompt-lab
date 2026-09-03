@@ -1,0 +1,40 @@
+{
+  "axis": "content-type",
+  "description": "通过兼容模型产出结构化或自由文本内容的提示词分类。",
+  "id": "cty_text",
+  "indexable": false,
+  "locale": "zh-CN",
+  "model": null,
+  "name": "文本",
+  "schemaVersion": 1,
+  "selector": {
+    "field": "contentType",
+    "value": "text"
+  },
+  "seo": {
+    "canonical": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/content-type/cty_text/zh-CN.json",
+    "description": "浏览输出类型明确为文本的可复用提示词。",
+    "robots": "noindex,nofollow",
+    "title": "文本提示词"
+  },
+  "slug": "text",
+  "sourceLocale": "en",
+  "status": "published",
+  "surface": {
+    "kind": "content-type-gallery",
+    "level": "L2",
+    "path": "/zh-CN/prompts/text"
+  },
+  "type": "taxonomy",
+  "sourceRef": "https://github.com/ziyetsui/prompt-lab/blob/main/content/taxonomies/content-type/cty_text/zh-CN.json",
+  "publication": {
+    "publishedAt": "2026-09-03T11:41:28.915Z",
+    "updatedAt": "2026-09-03T11:41:28.915Z",
+    "sourceRevision": "sha256:def258c3475e6e8b1fdd1c2471917ffc04168f9048825a57053a7d58f2e9f500"
+  },
+  "translation": {
+    "status": "ready",
+    "translatedFromRevision": "sha256:def258c3475e6e8b1fdd1c2471917ffc04168f9048825a57053a7d58f2e9f500",
+    "reviewer": "CMS approval"
+  }
+}

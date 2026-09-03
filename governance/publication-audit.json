@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "exportRevision": "sha256:7ea734603e1ca5976d0f35636cb615ffd542c572521ccece86f8eabfe5601114",
+  "total": 1,
+  "items": [
+    {
+      "approvalId": "1",
+      "approvedAt": "2026-09-03T11:41:28.915Z",
+      "contentRevision": "sha256:b233851c40f40145832e7c73d89d807a8f5b2f2660a478f21b1a1bc71a2bc7b6",
+      "id": "prm_80934ec28db44eec9c8a500111072136",
+      "locale": "zh-CN",
+      "rightsRevision": "sha256:dbe0372494056f2f20b87e6da417c20254f2006d20a9e15dece9439665796259",
+      "sourceRevision": "sha256:25b4842618bcc2d914a811d871536742b5e633c7b6823b47780bdfb191aca1f6"
+    }
+  ]
+}

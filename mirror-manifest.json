@@ -1,0 +1,82 @@
+{
+  "counts": {
+    "locales": 2,
+    "prompts": 1,
+    "taxonomies": 2
+  },
+  "exportRevision": "sha256:7ea734603e1ca5976d0f35636cb615ffd542c572521ccece86f8eabfe5601114",
+  "exporterVersion": "cms-public-snapshot-v1",
+  "files": [
+    {
+      "bytes": 677,
+      "path": "catalog.json",
+      "sha256": "sha256:772ad07dbc72319d7bc110b7b07b71f2372473a7d07b1ca1adb8db222803316f"
+    },
+    {
+      "bytes": 6326,
+      "path": "content/prompts/prm_80934ec28db44eec9c8a500111072136/zh-CN.md",
+      "sha256": "sha256:5ad8ebc3add87a307cdbeb240b1c6477d15577e66e8bdb7c820ee68f4c731e59"
+    },
+    {
+      "bytes": 160,
+      "path": "content/site.json",
+      "sha256": "sha256:c4f17cfd7675db8961f49541fc9d5a011d03b87cc99b5b7a94d0a19ba194f55b"
+    },
+    {
+      "bytes": 1310,
+      "path": "content/taxonomies/content-type/cty_text/zh-CN.json",
+      "sha256": "sha256:461aff779360cf4d38098250190ec5942b4ac9618c2ef33422f5c0f77a3ce6b6"
+    },
+    {
+      "bytes": 1467,
+      "path": "content/taxonomies/model/mdl_model_agnostic/zh-CN.json",
+      "sha256": "sha256:b3a0bd6da0a85bffea1b8020c0b8fcf4329bd3d1715ba35c10be2c1a85425dd2"
+    },
+    {
+      "bytes": 781,
+      "path": "governance/content-rights.json",
+      "sha256": "sha256:267474cf1d10e6dc94cfac6b41c48ff11b6dafa4c35e687f9db58224a3b8a654"
+    },
+    {
+      "bytes": 611,
+      "path": "governance/publication-audit.json",
+      "sha256": "sha256:7a3554d0ec0728ceb5b3a06611c37549c02b185b694e9f134c63a5a886c0bef8"
+    },
+    {
+      "bytes": 167,
+      "path": "locales/en/index.json",
+      "sha256": "sha256:3c27c4488e5646309b9dadb9342e865ca5d1c47cd031ddbca0a5bf20d9d50c44"
+    },
+    {
+      "bytes": 212,
+      "path": "locales/en/README.md",
+      "sha256": "sha256:ac1c07bb8ae283da3a560b93be271bd6c2078e21cebe25a744a68aab652f309e"
+    },
+    {
+      "bytes": 167,
+      "path": "locales/en/taxonomies.json",
+      "sha256": "sha256:3c27c4488e5646309b9dadb9342e865ca5d1c47cd031ddbca0a5bf20d9d50c44"
+    },
+    {
+      "bytes": 698,
+      "path": "locales/zh-CN/index.json",
+      "sha256": "sha256:7443ec1af21562e3745a6811cf136959c5e0471d875bb2c3fe5d42277f40d986"
+    },
+    {
+      "bytes": 400,
+      "path": "locales/zh-CN/README.md",
+      "sha256": "sha256:c1b90080a5cb1f800b7e182c7e7dcc89ae1eb17c2b9e0cbca428e70c3285c5e8"
+    },
+    {
+      "bytes": 3436,
+      "path": "locales/zh-CN/taxonomies.json",
+      "sha256": "sha256:a69ccfb4af58fd382bc1f1631c91f369663cf054c62fc389ff7f5f136d4f231e"
+    },
+    {
+      "bytes": 415,
+      "path": "README.md",
+      "sha256": "sha256:4e148eb7ae393840a99c260908ff974fc98d81893a8adab9d62805579c681770"
+    }
+  ],
+  "schemaVersion": 1
+}

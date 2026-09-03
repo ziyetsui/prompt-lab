@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "siteName": "PromptLab",
+  "defaultLocale": "en",
+  "locales": [
+    "en",
+    "zh-CN"
+  ],
+  "publishedLocales": [
+    "zh-CN"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "exportRevision": "sha256:7ea734603e1ca5976d0f35636cb615ffd542c572521ccece86f8eabfe5601114",
+  "locale": "zh-CN",
+  "total": 1,
+  "items": [
+    {
+      "id": "prm_80934ec28db44eec9c8a500111072136",
+      "locale": "zh-CN",
+      "path": "content/prompts/prm_80934ec28db44eec9c8a500111072136/zh-CN.md",
+      "rightsStatus": "cleared",
+      "slug": "turn-goal-into-action-plan",
+      "sourceUrl": "https://github.com/ziyetsui/prompt-lab/issues/1",
+      "summary": "把尚未拆解的目标转化为按依赖排序、包含时间估算、验收标准、风险和今日行动的最小执行计划。",
+      "title": "把模糊目标转化为可执行计划"
+    }
+  ]
+}
