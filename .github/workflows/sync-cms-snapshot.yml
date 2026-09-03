@@ -83,11 +83,13 @@ jobs:
             const host = url.hostname.replace(/^\[|\]$/g, "").replace(/\.+$/g, "").toLowerCase();
             const ip = isIP(host);
             const denied = new BlockList();
+            const githubRunnerProxy = new BlockList();
+            githubRunnerProxy.addSubnet("198.18.0.0", 15, "ipv4");
             for (const [network, prefix] of [
               ["0.0.0.0", 8], ["10.0.0.0", 8], ["100.64.0.0", 10], ["127.0.0.0", 8],
               ["169.254.0.0", 16], ["172.16.0.0", 12], ["192.0.0.0", 24], ["192.0.2.0", 24],
               ["192.31.196.0", 24], ["192.52.193.0", 24], ["192.88.99.0", 24], ["192.168.0.0", 16],
-              ["192.175.48.0", 24], ["198.18.0.0", 15], ["198.51.100.0", 24], ["203.0.113.0", 24],
+              ["192.175.48.0", 24], ["198.51.100.0", 24], ["203.0.113.0", 24],
               ["224.0.0.0", 4], ["240.0.0.0", 4],
             ]) denied.addSubnet(network, prefix, "ipv4");
             for (const [network, prefix] of [
@@ -97,7 +99,15 @@ jobs:
             ]) denied.addSubnet(network, prefix, "ipv6");
             const blocked = (address) => {
               const kind = isIP(address);
-              return kind === 0 || denied.check(address, kind === 4 ? "ipv4" : "ipv6");
+              if (kind === 0) return true;
+              // GitHub-hosted runners can resolve public Workers endpoints to
+              // their RFC 2544 egress proxy. Keep that exception restricted to
+              // Cloudflare-owned workers.dev names; all other 198.18/15 uses
+              // remain blocked and the resolved address is still curl-pinned.
+              if (kind === 4 && githubRunnerProxy.check(address, "ipv4")) {
+                return !host.endsWith(".workers.dev");
+              }
+              return denied.check(address, kind === 4 ? "ipv4" : "ipv6");
             };
             const localName = host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host.endsWith(".internal") || (!ip && !host.includes("."));
             if (url.protocol !== "https:" || url.username || url.password || url.hash || url.hostname.endsWith(".") || localName) process.exit(2);

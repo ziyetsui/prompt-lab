@@ -976,6 +976,9 @@ test('mirror workflow isolates a repository deploy key on fresh runners and perf
   assert.match(workflow, /lookup\(host, \{ all: true, verbatim: true \}\)/)
   assert.match(workflow, /new BlockList\(\)/)
   assert.match(workflow, /denied\.check\(address/)
+  assert.match(workflow, /githubRunnerProxy\.addSubnet\("198\.18\.0\.0", 15, "ipv4"\)/)
+  assert.match(workflow, /githubRunnerProxy\.check\(address, "ipv4"\)/)
+  assert.match(workflow, /!host\.endsWith\("\.workers\.dev"\)/)
   assert.match(workflow, /prompt-lab-curl-resolve\.conf/)
   const fetchStep = workflow.slice(
     workflow.indexOf('- name: Fetch immutable CMS snapshot'),
